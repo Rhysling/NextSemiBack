@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.StaticFiles;
 using NextSemiBack.Mailer;
 using NextSemiBack.Models;
+using NextSemiBack.Recaptcha;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
@@ -19,10 +20,8 @@ if (aps != null)
 	builder.Services.AddSingleton(aps);
 }
 
-//builder.Services.AddSingleton<NextSemiDb>();
-builder.Services.AddSingleton<MailgunTarget>();
-//builder.Services.AddHttpClient();
-//public MailgunService(HttpClient client, IOptions<AppSettings> settings)
+builder.Services.AddSingleton<MailgunService>();
+builder.Services.AddSingleton<RecaptchaService>();
 
 //builder.Services.AddAuthorization();
 //builder.Services.AddAuthentication(options =>

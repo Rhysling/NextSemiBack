@@ -6,8 +6,6 @@ public class AppSettings
 {
 	public ASNextSemi NextSemi { get; set; }
 
-	public ASCloudant Cloudant { get; set; }
-
 	public ASMailgun Mailgun { get; set; }
 }
 
@@ -20,14 +18,6 @@ public class ASNextSemi
 	public string AuthDomain { get; set; }
 	public string AuthAudience { get; set; }
 	public string AuthClientId { get; set; }
-}
-
-public class ASCloudant
-{
-	public string BaseUrl { get; set; }
-	public string NextSemiDbName { get; set; }
-	public string NextSemiAuth { get; set; }
-
 }
 
 public class ASMailgun

@@ -2,13 +2,13 @@
 
 namespace NextSemiBack.Mailer
 {
-	public class MailgunTarget
+	public class MailgunService
 	{
 		private readonly HttpClient client;
 		private const string baseAddress = "https://api.mailgun.net/v3/{0}/messages";
 		private const string fromAddress = "noreply@nextsemi-demo.com";
 
-		public MailgunTarget(AppSettings aps)
+		public MailgunService(AppSettings aps)
 		{
 			var socketsHandler = new SocketsHttpHandler
 			{

@@ -8,11 +8,11 @@ namespace NextSemiBack.Controllers
 	[ApiController]
 	public class SendContactController : ControllerBase
 	{
-		private readonly MailgunTarget mgt;
+		private readonly MailgunService mgs;
 		private readonly AppSettings aps;
 
-		public SendContactController(MailgunTarget mgt, AppSettings aps) {
-			this.mgt = mgt;
+		public SendContactController(MailgunService mgs, AppSettings aps) {
+			this.mgs = mgs;
 			this.aps = aps;
 		}
 
@@ -27,7 +27,7 @@ namespace NextSemiBack.Controllers
 
 			try
 			{
-				var res = await mgt.SendAsync(msg, tos);
+				var res = await mgs.SendAsync(msg, tos);
 
 				if (res.IsSuccessStatusCode) return Ok();
 
