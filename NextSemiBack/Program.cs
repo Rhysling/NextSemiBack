@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.StaticFiles;
+using NextSemiBack.Mailer;
 using NextSemiBack.Models;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
 
@@ -19,7 +20,8 @@ if (aps != null)
 }
 
 //builder.Services.AddSingleton<NextSemiDb>();
-//builder.Services.AddHttpClient<MailgunService>();
+builder.Services.AddSingleton<MailgunTarget>();
+//builder.Services.AddHttpClient();
 //public MailgunService(HttpClient client, IOptions<AppSettings> settings)
 
 //builder.Services.AddAuthorization();

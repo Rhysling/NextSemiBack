@@ -32,7 +32,12 @@ public class ASCloudant
 
 public class ASMailgun
 {
-	public string FromDomain { get; set; }
+	public string FromDomain
+	{
+		get { return "nextsemi-demo.com"; }
+		set { _ = value; }
+	}
+
 	public string AuthValue { get; set; }
 }
 
