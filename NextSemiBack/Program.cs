@@ -1,15 +1,12 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.IdentityModel.Tokens;
 using NextSemiBack.Mailer;
 using NextSemiBack.Models;
 using NextSemiBack.Recaptcha;
-//using Microsoft.AspNetCore.Authentication.JwtBearer;
-
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
 
 builder.Services.Configure<AppSettings>(builder.Configuration);
 
@@ -23,16 +20,22 @@ if (aps != null)
 builder.Services.AddSingleton<MailgunService>();
 builder.Services.AddSingleton<RecaptchaService>();
 
-//builder.Services.AddAuthorization();
-//builder.Services.AddAuthentication(options =>
-//{
-//	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//}).AddJwtBearer(options =>
-//{
-//	options.Authority = builder.Configuration["Feeder:AuthDomain"];
-//	options.Audience = builder.Configuration["Feeder:AuthAudience"];
-//});
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuer = true,
+		ValidateAudience = true,
+		ValidateLifetime = true,
+		ValidateIssuerSigningKey = true,
+		ValidIssuer = aps?.Jwt.Issuer,
+		ValidAudience = aps?.Jwt.Issuer,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(aps?.Jwt.Key ?? ""))
+	};
+});
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 

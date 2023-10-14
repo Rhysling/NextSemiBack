@@ -183,6 +183,7 @@ node_modules/
 # Project specific ignores
 *.bak
 *.credentials
+**/appsettings.*
 **/app[Dd]ist
 **/app[Ss]rc/**/*.js
 **/app[Ss]rc/**/*.js.map

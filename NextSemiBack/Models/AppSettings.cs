@@ -5,19 +5,25 @@
 public class AppSettings
 {
 	public ASNextSemi NextSemi { get; set; }
-
+	public AS_Jwt Jwt { get; set; }
 	public ASMailgun Mailgun { get; set; }
 }
-
 
 public class ASNextSemi
 {
 	public string IsProductionString { get; set; }
 	public bool IsProduction => IsProductionString == "true";
 	public string BaseUrl { get; set; }
+	public string AdminPw { get; set; }
 	public string AuthDomain { get; set; }
 	public string AuthAudience { get; set; }
 	public string AuthClientId { get; set; }
+}
+
+public class AS_Jwt
+{
+	public string Key { get; set; }
+	public string Issuer { get; set; }
 }
 
 public class ASMailgun
