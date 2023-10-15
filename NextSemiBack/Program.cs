@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using NextSemiBack.Mailer;
 using NextSemiBack.Models;
 using NextSemiBack.Recaptcha;
+using NextSemiBack.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ if (aps != null)
 
 builder.Services.AddSingleton<MailgunService>();
 builder.Services.AddSingleton<RecaptchaService>();
+builder.Services.AddSingleton<TechItemDb>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

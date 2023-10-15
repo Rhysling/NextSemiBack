@@ -1,6 +1,7 @@
 ﻿using NextSemiBack.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NextSemiBack.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,12 +18,13 @@ public class TestController : ControllerBase
 
 	//private readonly ILogger<WeatherForecastController> _logger;
 	//private readonly AppSettings aps;
+	private readonly TechItemDb tDb;
 
-
-	public TestController()
+	public TestController(TechItemDb tDb)
 	{
 		//_logger = logger;
 		//this.aps = aps;
+		this.tDb = tDb;
 	}
 
 
@@ -47,7 +49,8 @@ public class TestController : ControllerBase
 	[HttpGet("[action]")]
 	public string GetUnsecuredValue()
 	{
-		return "This is an unsecured value.";
+		tDb.Create();
+		return tDb.FilePath;
 	}
 
 	[HttpGet("[action]")]
