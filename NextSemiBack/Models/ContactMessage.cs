@@ -7,6 +7,8 @@
 		public required string Company { get; set; }
 		public required string Phone { get; set; }
 		public required string Message { get; set; }
+		public string? SentAt { get; set; }
+		public int StatusCode { get; set; }
 	}
 
 	

@@ -18,9 +18,9 @@ public class TestController : ControllerBase
 
 	//private readonly ILogger<WeatherForecastController> _logger;
 	//private readonly AppSettings aps;
-	private readonly TechItemDb tDb;
+	private readonly IpItemDb tDb;
 
-	public TestController(TechItemDb tDb)
+	public TestController(IpItemDb tDb)
 	{
 		//_logger = logger;
 		//this.aps = aps;
@@ -49,8 +49,9 @@ public class TestController : ControllerBase
 	[HttpGet("[action]")]
 	public string GetUnsecuredValue()
 	{
-		tDb.Create();
-		return tDb.FilePath;
+		//tDb.Create();
+		//return tDb.FilePath;
+		return "foo";
 	}
 
 	[HttpGet("[action]")]

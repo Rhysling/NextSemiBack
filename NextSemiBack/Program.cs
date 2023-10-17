@@ -20,7 +20,8 @@ if (aps != null)
 
 builder.Services.AddSingleton<MailgunService>();
 builder.Services.AddSingleton<RecaptchaService>();
-builder.Services.AddSingleton<TechItemDb>();
+builder.Services.AddSingleton<IpItemDb>();
+builder.Services.AddSingleton<ContactMessageDb>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

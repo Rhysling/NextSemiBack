@@ -1,44 +1,49 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NextSemiBack.Mailer;
 using NextSemiBack.Models;
+using NextSemiBack.Services;
 
-namespace NextSemiBack.Controllers
+namespace NextSemiBack.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class SendContactController : ControllerBase
 {
-	[Route("api/[controller]")]
-	[ApiController]
-	public class SendContactController : ControllerBase
+	private readonly MailgunService mgs;
+	private readonly AppSettings aps;
+	private readonly ContactMessageDb db;
+
+	public SendContactController(MailgunService mgs, AppSettings aps, ContactMessageDb db) {
+		this.mgs = mgs;
+		this.aps = aps;
+		this.db = db;
+	}
+
+	// POST api/SendContact
+	[HttpPost]
+	public async Task<IActionResult> PostAsync([FromBody] ContactMessage msg, [FromQuery] String k)
 	{
-		private readonly MailgunService mgs;
-		private readonly AppSettings aps;
+		if (k != "812g")
+			return StatusCode(403);
 
-		public SendContactController(MailgunService mgs, AppSettings aps) {
-			this.mgs = mgs;
-			this.aps = aps;
-		}
+		string tos = aps.NextSemi.IsProduction ? "bob@nextsemi.com" : "rpkummer@hotmail.com,rkummer@polson.com";
 
-		// POST api/SendContact
-		[HttpPost]
-		public async Task<IActionResult> PostAsync([FromBody] ContactMessage msg, [FromQuery] String k)
+		ObjectResult ret;
+
+		try
 		{
-			if (k != "812g")
-				return StatusCode(403);
-
-			string tos = aps.NextSemi.IsProduction ? "bob@nextsemi.com" : "rpkummer@hotmail.com,rkummer@polson.com";
-
-			try
-			{
-				var res = await mgs.SendAsync(msg, tos);
-
-				if (res.IsSuccessStatusCode) return Ok();
-
-				return StatusCode((int)res.StatusCode, res);
-			}
-			catch (Exception ex)
-			{
-				return StatusCode(500, ex.Message);
-			}
-
-
+			var res = await mgs.SendAsync(msg, tos);				 
+			ret = StatusCode((int)res.StatusCode, res);
 		}
+		catch (Exception ex)
+		{
+			ret = StatusCode(500, ex.Message);
+		}
+
+		msg.SentAt = DateTime.Now.ToString("s");
+		msg.StatusCode = ret.StatusCode ?? 0;
+		db.Add(msg);			
+
+		return ret;
 	}
 }
