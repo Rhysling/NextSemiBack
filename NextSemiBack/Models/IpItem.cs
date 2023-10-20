@@ -1,5 +1,8 @@
-﻿namespace NextSemiBack.Models
+﻿using NextSemiBack.Services.FiltersAttributes;
+
+namespace NextSemiBack.Models
 {
+	[TypeScriptModel]
 	public class IpItem
 	{
 		public int Id { get; set; }

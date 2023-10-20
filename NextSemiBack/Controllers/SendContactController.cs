@@ -26,7 +26,7 @@ public class SendContactController : ControllerBase
 		if (k != "812g")
 			return StatusCode(403);
 
-		string tos = aps.NextSemi.IsProduction ? "bob@nextsemi.com" : "rpkummer@hotmail.com,rkummer@polson.com";
+		string tos = aps.NextSemi.IsProduction ? "contact@nextsemi.com" : "rpkummer@hotmail.com,rkummer@polson.com";
 
 		ObjectResult ret;
 

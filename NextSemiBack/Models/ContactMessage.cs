@@ -1,5 +1,8 @@
-﻿namespace NextSemiBack.Models
+﻿using NextSemiBack.Services.FiltersAttributes;
+
+namespace NextSemiBack.Models
 {
+	[TypeScriptModel]
 	public class ContactMessage
 	{
 		public required string Name { get; set; }
