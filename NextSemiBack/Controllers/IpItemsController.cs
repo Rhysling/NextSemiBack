@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using BotanicaStoreBack.Services.FiltersAttributes;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NextSemiBack.Models;
 using NextSemiBack.Services;
@@ -23,17 +24,18 @@ public class IpItemsController : ControllerBase
 		return db.Items;
 	}
 
+	// POST: api/IpItems/Save
+	[AdminAuthorize]
 	[HttpPost("[action]")]
-	//[Authorize(Roles = "Admin")]
-	// /api/IpItems/Save
 	public IActionResult Save([FromBody] IpItem item)
 	{
 		db.SaveItem(item);
 		return Created("/Save", item);
 	}
 
+	// POST: api/IpItems/Delete
+	[AdminAuthorize]
 	[HttpPost("[action]")]
-	//[Authorize(Roles = "Admin")]
 	public IActionResult Delete([FromBody] IpItem item)
 	{
 		db.DeleteItem(item);

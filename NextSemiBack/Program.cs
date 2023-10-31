@@ -22,6 +22,7 @@ builder.Services.AddSingleton<MailgunService>();
 builder.Services.AddSingleton<RecaptchaService>();
 builder.Services.AddSingleton<IpItemDb>();
 builder.Services.AddSingleton<ContactMessageDb>();
+builder.Services.AddSingleton<UsersDb>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -76,7 +77,7 @@ if (app.Environment.IsDevelopment())
 	{
 		builder
 		//.AllowAnyOrigin()
-		.WithOrigins("http://localhost:5050")
+		.WithOrigins("http://localhost:5050", "http://127.0.0.1:5050")
 		//.AllowAnyMethod()
 		.WithMethods("POST", "GET", "OPTIONS", "PUT")
 		.AllowAnyHeader()
